@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/home', [PostController::class, 'index'])->name('home');
+Route::get('subscriptions/generate', [SubscriptionController::class, 'createSubscriptionPlans'])->name('subscription.generate');

@@ -13,15 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('user_subscriptions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('title');
-            $table->text('description');
-            $table->enum('status', ['draft', 'live']);
+            $table->unsignedBigInteger('subscription_plan_id');
+            $table->enum('status', ['active', 'expired', 'cancelled']);
+            $table->timestamp('renewal_at');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('subscription_plan_id')->references('id')->on('subscription_plans');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
         });
     }
@@ -33,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('user_subscriptions');
     }
 };
