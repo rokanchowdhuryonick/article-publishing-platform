@@ -16,4 +16,12 @@ class UserSubscriptionsModel extends Model
         'status',
         'renewal_at',
     ];
+    
+    public function plan(){
+        return $this->belongsTo(SubscriptionPlansModel::class, 'subscription_plan_id');
+    }
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    
 }

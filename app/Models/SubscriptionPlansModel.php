@@ -17,4 +17,13 @@ class SubscriptionPlansModel extends Model
         'currency',
         'interval'
     ];
+
+    public static function freePlan()
+    {
+        return static::where('price', 0)->first();
+    }
+
+    public function subscriptions(){
+        return $this->hasMany(UserSubscriptionsModel::class, 'subscription_plan_id');
+    }
 }

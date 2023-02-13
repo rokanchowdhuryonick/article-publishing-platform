@@ -10,7 +10,7 @@
   <title>@yield('title')</title>
   <!-- Bootstrap core CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+  
   <meta name="theme-color" content="#7952b3">
 
 
@@ -48,29 +48,39 @@
             <div class="col-8 ">
               <span class="blog-header-logo text-dark" href="#">The R Blog</span>
             </div>
+
+            @if (Auth::user())
             <div class="col-4 d-flex justify-content-end align-items-center">
-              
-              <a class="btn btn-sm btn-outline-secondary" href="#">Sign In</a>
+              <a class="btn btn-sm btn-outline-dark mx-3" href="#">Hello, {{Auth::user()->name}}</a>
+              <a class="btn btn-sm btn-outline-danger" href="{{route('logout')}}">Logout</a>
             </div>
+            @else
+            <div class="col-4 d-flex justify-content-end align-items-center">
+              <a class="btn btn-sm btn-outline-secondary mx-3" href="{{route('login')}}">Log In</a>
+              <a class="btn btn-sm btn-outline-primary" href="{{route('register')}}">Register</a>
+            </div>
+            @endif
+
           </div>
         </header>
       
-        {{-- <div class="nav-scroller py-1 mb-2">
-          <nav class="nav d-flex justify-content-between">
-            <a class="p-2 link-secondary" href="#">World</a>
-            <a class="p-2 link-secondary" href="#">U.S.</a>
-            <a class="p-2 link-secondary" href="#">Technology</a>
-            <a class="p-2 link-secondary" href="#">Design</a>
-            <a class="p-2 link-secondary" href="#">Culture</a>
-            <a class="p-2 link-secondary" href="#">Business</a>
-            <a class="p-2 link-secondary" href="#">Politics</a>
-            <a class="p-2 link-secondary" href="#">Opinion</a>
-            <a class="p-2 link-secondary" href="#">Science</a>
-            <a class="p-2 link-secondary" href="#">Health</a>
-            <a class="p-2 link-secondary" href="#">Style</a>
-            <a class="p-2 link-secondary" href="#">Travel</a>
+        <div class="nav-scroller py-1 mb-2">
+          <nav class="nav d-flex justify-content-center">
+            <a class="btn btn-dark m-1" href="{{route('home')}}">Home</a>
+            @auth
+
+            <a class="btn btn-dark m-1" href="{{route('post.list')}}">Posts</a>
+            @if (Auth::user()->is_admin)
+            <a class="btn btn-dark m-1" href="{{route('post.list')}}">Users</a>
+            @else
+            <a class="btn btn-dark m-1" href="{{route('subscription.change')}}">Upgrade/Downgrade</a>
+            
+            @endif
+            
+            @endauth
+            {{-- <a class="btn btn-dark m-1" href="{{route('post.list')}}">Posts</a> --}}
           </nav>
-        </div> --}}
+        </div><hr>
       </div>
 
       <main class="container">
@@ -85,7 +95,7 @@
           <a href="#header">Back to top</a>
         </p>
       </footer>
-
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 
 </html>

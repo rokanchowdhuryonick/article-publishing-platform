@@ -18,7 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('title');
             $table->text('description');
-            $table->enum('status', ['draft', 'live']);
+            $table->enum('active', ['0', '1']);
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
